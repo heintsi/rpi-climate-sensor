@@ -11,7 +11,7 @@ module.exports = new function() {
 
   this.add = function(data) {
     var entry = _merge({}, data, {
-        timestamp: new Date().getTime()
+        timestamp: new Date().toISOString()
       }
     )
     db.object[collectionKey].push(entry)
