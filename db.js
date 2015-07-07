@@ -1,9 +1,10 @@
 var _merge = require('lodash.merge'),
+    path = require('path'),
     lowdb  = require('lowdb')
 
 module.exports = new function() {
 
-  var db = lowdb('data.json')
+  var db = lowdb(path.resolve(__dirname) + '/data.json')
 
   var collectionKey = 'data'
   db(collectionKey)
