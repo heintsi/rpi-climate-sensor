@@ -1,29 +1,52 @@
-var env = process.env.NODE_ENV || 'prod'
+module.exports = {
 
-var configuration = {
 
-  // The dev mode allows to test and run the app, but the actual DHT sensor interface is mocked.
-  dev: function() {
-    return {
-      dhtSensor: {
-        readSpec: function() {
-          return {
-            temperature: 0,
-            humidity: 0
-          }
-        }
+  sensorJob: {
+
+    // Job scheduling pattern for reading sensor values.
+    cronPattern: '0 0,20,40 * * * *', // == Every 20 minutes starting every new hour at hh:00
+
+    // A list of the sensors to read from.
+    sensors: [
+      {
+        name: 'indoor', // This must be unique within the list.
+        type: 22,       // 11 for DHT11, 22 for DHT22 and AM2302
+        pin:  3         // The number of the pin the sensor is connected to in RPI
       },
-      pollingFrequencySecs: 1000 * 10 // 10 seconds
+      {
+        name: 'outdoor',
+        type: 22,
+        pin:  4
+      }
+    ],
+
+    // Files to write the sensor data.
+    dataFiles: {
+      main: 'data.json',
+      google: 'data-google.json'
     }
   },
 
-  prod: function() {
-    return {
-      dhtSensor: require('node-dht-sensor'),
-      pollingFrequencySecs: 1000 * 60 * 15 // 15 minutes
+
+  googleSheetJob: {
+
+    cronPattern: '0 1,21,41 * * * *', // == Every 20 minutes starting every new hour at hh:01
+
+    dataFileKey: 'google',
+
+    url: '', // Google sheet url
+
+    keys: {
+      timestamp: '',
+      indoor: {
+        temperature: '',
+        humidity: ''
+      },
+      outdoor: {
+        temperature: '',
+        humidity: ''
+      }
     }
-
   }
-}
 
-module.exports = configuration[env]()
+}
