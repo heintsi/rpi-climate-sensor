@@ -17,10 +17,10 @@ var configuration = {
             }
           }
         },
-        cronPattern: '0,15,30,45 * * * * *' // Override for testing, every 15 seconds
+        cronPattern: '0,20,40 * * * * *' // Override for testing, every 20 seconds
       },
       googleSheetJob: {
-        cronPattern: '5,20,35,50 * * * * *'
+        cronPattern: '5,15,25,35,45,55 * * * * *'
       }
     }
   },

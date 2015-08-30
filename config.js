@@ -4,7 +4,7 @@ module.exports = {
   sensorJob: {
 
     // Job scheduling pattern for reading sensor values.
-    cronPattern: '0 0,20,40 * * * *', // == Every 20 minutes starting every new hour at hh:00
+    cronPattern: '0 0,15,30,45 * * * *', // == Every 15 minutes starting every new hour at hh:00
 
     // A list of the sensors to read from.
     sensors: [
@@ -30,7 +30,7 @@ module.exports = {
 
   googleSheetJob: {
 
-    cronPattern: '0 1,21,41 * * * *', // == Every 20 minutes starting every new hour at hh:01
+    cronPattern: '0 1,6,11,16,21,26,31,36,41,46,51,56 * * * *', // == Every 5 minutes starting every new hour at hh:01
 
     dataFileKey: 'google',
 
