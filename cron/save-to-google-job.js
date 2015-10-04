@@ -15,7 +15,7 @@ function SaveToGoogleJob(conf) {
 
   function tick() {
     var dataCollection = conf.db.collection(conf.dataFileKey)('data')
-    var entry          = dataCollection.pullAt(0)[0]
+    var entry          = dataCollection.take(1)[0]
 
     if (!entry) {
       log.debug('Google data buffer empty, skipping data post.')
@@ -36,6 +36,7 @@ function SaveToGoogleJob(conf) {
         form:   data
       }, function(err, res, body) {
         if (!err && res.statusCode == 200) {
+          dataCollection.pullAt(0)
           log.debug('Google data post successful. Data buffer size after post: %d', dataCollection.size())
         } else {
           log.notice('Failed to log results to Google. ' + err)
